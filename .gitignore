@@ -1,1 +1,4 @@
-echo "node_modules/" >> .gitignore
+.env
+
+# dependencies
+/node_modules
