@@ -5,7 +5,7 @@ routes.get('/students', (req,res)=>{
     res.send({type:'Get Request'});
 });
 
-routes.post('/students', (req,res)=>{
+routes.post('/AddStudents', (req,res)=>{
     res.send({type:'Post Request'});
 });
 
