@@ -8,6 +8,11 @@ const router = express.Router();
 
  router.post('/Addstudent',studentscontoller.AddStudent);
 
+ router.put('/updatestudent/:id',studentscontoller.updateStudent);
+
+
+ router.delete('/:id',studentscontoller.deleteStudent);
+
 
 //  PUT - Update a student by ID
 router.put('/students/:id', (req, res) => {
