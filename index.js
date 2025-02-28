@@ -1,11 +1,16 @@
 const express = require('express');
 const studentsroutes = require('./routes/studentsRoute');
+const lecturersroutes = require('./routes/lecturersRoute');
+const authroutes = require('./routes/authRoute');
+const createError = require('http-errors');
 const app = express();
 require('dotenv').config();
 require('./helpers/init_mongodb');
 
 app.use(express.json());
 app.use("/students",studentsroutes )
+app.use("/lecturers" , lecturersroutes)
+app.use("/api/auth",authroutes)
 
 
 //handling errors
