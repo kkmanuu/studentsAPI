@@ -1,12 +1,13 @@
 const express = require('express');
 const studentscontoller = require('../controllers/studentscontoller');
+const {verifyAccessToken} = require('../helpers/jwtHelper');
 const router = express.Router();
 
 //  GET all students
- router.get('/getAllStudent',studentscontoller.getAllStudents);
+ router.get('/getAllStudent',verifyAccessToken, studentscontoller.getAllStudents);
 
 
- router.post('/Addstudent',studentscontoller.AddStudent);
+ router.post('/Addstudent',verifyAccessToken, studentscontoller.AddStudent);
 
  router.put('/updatestudent/:id',studentscontoller.updateStudent);
 
