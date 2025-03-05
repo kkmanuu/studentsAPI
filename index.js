@@ -3,6 +3,8 @@ const studentsroutes = require('./routes/studentsRoute');
 const lecturersroutes = require('./routes/lecturersRoute');
 const authroutes = require('./routes/authRoute');
 const createError = require('http-errors');
+const helmet  = require('helmet');
+const rateLimit = require('express-rate-limit');
 const app = express();
 require('dotenv').config();
 require('./helpers/init_mongodb');
@@ -12,6 +14,14 @@ app.use("/students",studentsroutes )
 app.use("/lecturers" , lecturersroutes)
 app.use("/api/auth",authroutes)
 
+app.use(helmet());
+
+const limiter = rateLimit({
+    max: 2,
+    windowMs: 10 * 1000,
+    message: 'Too many requests from this IP, please try again in an hour',
+});
+app.use("/api", limiter);
 
 //handling errors
 
