@@ -38,12 +38,12 @@ module.exports = {
     });
   },
   
-  signRefreshToken: () => {
+  signRefreshToken: (UserId) => {
     return new Promise((resolve, reject) => {
       const payload = {};
       const options = {
         expiresIn: "1d",
-        audience: User.id,
+        audience: UserId,
       };
 
       JWT.sign(
