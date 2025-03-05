@@ -2,7 +2,7 @@ const { authSchema } = require("../helpers/validationSchema");
 const authmodel = require("../models/authmodel");
 const createError = require("http-errors");
 const bcrypt = require("bcrypt");
-const { signAccessToken } = require("../helpers/jwtHelper");
+const { signAccessToken, signRefreshToken } = require("../helpers/jwtHelper");
 
 module.exports = {
   register: async (req, res, next) => {
@@ -49,8 +49,9 @@ module.exports = {
 
       //if password match then generate token
       const accessToken = await signAccessToken(user.id);
+      const refreshToken = await signRefreshToken(user.id);
 
-      res.send({ accessToken });
+      res.send({ accessToken , refreshToken});
     } catch (error) {
       if (error.isJoi === true)
         return next(createError.BadRequest("Invalid username/password"));
