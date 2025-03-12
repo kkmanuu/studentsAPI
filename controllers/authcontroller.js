@@ -48,7 +48,7 @@ module.exports = {
         throw createError.Unauthorized("Username/password not valid");
 
       //if password match then generate token
-      const accessToken = await signAccessToken(user.id);
+      const accessToken = await signAccessToken(user.id, user.role);
       const refreshToken = await signRefreshToken(user.id);
 
       res.send({ accessToken , refreshToken});
