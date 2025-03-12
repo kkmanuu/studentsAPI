@@ -12,7 +12,11 @@ const studentSchema = new Schema({
     },
     gender:{
         type: String
-    }
+    },
+    // role:{
+    //     type: DataTypes.ENUM('admin', 'nan1', 'student'),
+    //     defaultValue: 'student'
+    // },
 });
 
 
