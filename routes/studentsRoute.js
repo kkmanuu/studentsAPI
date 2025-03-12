@@ -1,18 +1,19 @@
 const express = require('express');
 const studentscontoller = require('../controllers/studentscontoller');
 const {verifyAccessToken} = require('../helpers/jwtHelper');
+// const authcontroller = require('../controllers/authcontroller');
 const router = express.Router();
 
 //  GET all students
- router.get('/getAllStudent',verifyAccessToken, studentscontoller.getAllStudents);
+ router.get('/getAllStudent',  studentscontoller.getAllStudents);
 
 
- router.post('/Addstudent',verifyAccessToken, studentscontoller.AddStudent);
+ router.post('/Addstudent', studentscontoller.addStudent);
 
  router.put('/updatestudent/:id',studentscontoller.updateStudent);
 
 
- router.delete('/:id',studentscontoller.deleteStudent);
+ router.delete('/deletestudent/:id',studentscontoller.deleteStudent);
 
 
 //  PUT - Update a student by ID
