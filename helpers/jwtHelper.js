@@ -3,9 +3,9 @@ const createError = require("http-errors");
 const students = require("../models/students");
 
 module.exports = {
-  signAccessToken: (UserId) => {
+  signAccessToken: (UserId,userRole) => {
     return new Promise((resolve, reject) => { 
-      const payload = {}; 
+      const payload = {UserId, userRole}; 
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const options = {
         expiresIn: "2h",
@@ -60,4 +60,16 @@ module.exports = {
       );
     });
   },
+};
+
+restrict = (...allowedRoles) => {
+  return (req, res, next) => {
+    const userRole = req.payload?.roles; 
+
+    if (!userRole || !allowedRoles.includes(userRole)) {
+      return next(createError.Forbidden("Sorry! You don't have access to this resource"));
+    }
+
+    next(); 
+  };
 };
