@@ -6,7 +6,8 @@ const router = express.Router();
 
 //  GET all students
  router.get('/getAllStudent',  studentscontoller.getAllStudents);
-
+ 
+ router.get('/getStudent/:id', studentscontoller.getStudentById);
 
  router.post('/Addstudent', studentscontoller.addStudent);
 
