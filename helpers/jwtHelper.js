@@ -3,16 +3,16 @@ const createError = require("http-errors");
 const students = require("../models/students");
 
 module.exports = {
-  signAccessToken: (UserId,userRole) => {
-    return new Promise((resolve, reject) => { 
-      const payload = {UserId, userRole}; 
+  signAccessToken: (UserId, userRole) => {
+    return new Promise((resolve, reject) => {
+      const payload = { UserId, userRole };
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const options = {
         expiresIn: "2h",
         issuer: "EddTechnologies.com",
         audience: UserId,
       };
-  
+
       JWT.sign(payload, secret, options, (error, token) => {
         if (error) {
           console.log(error.message);
@@ -21,14 +21,14 @@ module.exports = {
         resolve(token);
       });
     });
-  },  
+  },
   verifyAccessToken: (req, res, next) => {
     if (!req.headers["authorization"]) {
       return next(createError.Unauthorized());
     }
-  
+
     const bearerToken = req.headers["authorization"].split(" ")[1];
-  
+
     JWT.verify(bearerToken, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
       if (err) {
         return next(createError.Unauthorized(err.message));
@@ -37,7 +37,7 @@ module.exports = {
       next();
     });
   },
-  
+
   signRefreshToken: (UserId) => {
     return new Promise((resolve, reject) => {
       const payload = {};
@@ -64,12 +64,14 @@ module.exports = {
 
 restrict = (...allowedRoles) => {
   return (req, res, next) => {
-    const userRole = req.payload?.roles; 
+    const userRole = req.payload?.roles;
 
     if (!userRole || !allowedRoles.includes(userRole)) {
-      return next(createError.Forbidden("Sorry! You don't have access to this resource"));
+      return next(
+        createError.Forbidden("Sorry! You don't have access to this resource")
+      );
     }
 
-    next(); 
+    next();
   };
 };
