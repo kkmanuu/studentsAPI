@@ -1,25 +1,22 @@
-const express = require('express');
-const lecturerscontrollers = require('../controllers/lecturerscontrollers');
+const express = require("express");
+const lecturerscontrollers = require("../controllers/lecturerscontrollers");
 const router = express.Router();
 
 //  GET all lecturers
- router.get('/getAllLecturer',lecturerscontrollers.getAllLecturer);
+router.get("/getAllLecturer", lecturerscontrollers.getAllLecturer);
 
+router.post("/Addlecturer", lecturerscontrollers.AddLecturer);
 
- router.post('/Addlecturer',lecturerscontrollers.AddLecturer);
+router.put("/updatelecturer/:id", lecturerscontrollers.updateLecturer);
 
- router.put('/updatelecturer/:id',lecturerscontrollers.updateLecturer);
+router.delete("/:id", lecturerscontrollers.deleteLecturer);
 
-
- router.delete('/:id',lecturerscontrollers.deleteLecturer);
-
-
-router.put('/lecturers/:id', (req, res) => {
-    res.send({ type: 'Update Request' });
+router.put("/lecturers/:id", (req, res) => {
+  res.send({ type: "Update Request" });
 });
 
-router.delete('/lecturers/:id', (req, res) => {
-    res.send({ type: 'Delete Request' });
+router.delete("/lecturers/:id", (req, res) => {
+  res.send({ type: "Delete Request" });
 });
 
 module.exports = router;
