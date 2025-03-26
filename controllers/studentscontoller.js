@@ -18,14 +18,19 @@ module.exports = {
   getStudentById: async (req, res, next) => {
     try {
       const { id } = req.params;
+      console.log("Fetching student with ID:", id); // ✅ Log request ID
 
-      // Validate MongoDB ObjectId format
+      // Validate ObjectId
       if (!mongoose.Types.ObjectId.isValid(id)) {
+        console.log("Invalid ID format:", id);
         return res.status(400).json({ error: "Invalid student ID format" });
       }
 
       const student = await Student.findById(id);
+      console.log("Database result:", student); // ✅ Log DB response
+
       if (!student) {
+        console.log("Student not found for ID:", id);
         return res.status(404).json({ error: "Student not found" });
       }
 
@@ -34,8 +39,7 @@ module.exports = {
       console.error("Error fetching student:", error);
       res.status(500).json({ error: "Internal server error" });
     }
-  },
-
+},
   // Add a new student
   addStudent: async (req, res, next) => {
     try {
